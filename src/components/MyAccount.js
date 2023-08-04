@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function MyAccount (props) {
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const [result, setResult] = useState(null)
 
     const handleChangeName = event => {
         setName(event.target.value)
@@ -20,16 +21,25 @@ export default function MyAccount (props) {
         setEmail(event.target.value)
     }
 
-    const handleChangePassword = event => {
-        setPassword(event.target.value)
-    }
-
-    const handleChangeConfirmPassword = event => {
-        setConfirmPassword(event.target.value)
-    }
-
     const handleUpdateInfo = event => {
         event.preventDefault()
+        axios({
+            method: 'PUT',
+            url: `http://localhost:8000/api/users/${ props.user.id }`,
+            data: {
+                name: name,
+                surname: surname,
+                email: email
+            }
+        })
+        .then(res => {
+            if (res.status === 200) {
+                setResult(true)
+            } else {
+                setResult(false)
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -46,21 +56,18 @@ export default function MyAccount (props) {
                 <div className='modal-body'>
                     <form onSubmit={ handleUpdateInfo }>
                         <label htmlFor='name'>Nome</label>
-                        <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } value={ props.user.name } />
+                        <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
                         <label htmlFor='surname'>Surname</label>
-                        <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } value={ props.user.surname } />
+                        <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } />
                         <label htmlFor='email'>Email</label>
-                        <input id='email' className='form-control my-2 text-center' onChange={ handleChangeEmail } type='email' value={ props.user.email } />
-                        <label htmlFor='password'>Password</label>
-                        <input id='password' className='form-control my-2 text-center' onChange={ handleChangePassword } type='password' />
-                        <label htmlFor='confrim-password'>Conferma password</label>
-                        <input id='confirm-password' className='form-control my-2 text-center' onChange={ handleChangeConfirmPassword } type='password' />
+                        <input id='email' className='form-control my-2 text-center' onChange={ handleChangeEmail } type='email' />
                         <input type='submit' className='form-control my-2 btn btn-success' />
                     </form>
-                </div>
-                <div className='modal-footer'>
-                    <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                    <button type='button' className='btn btn-primary'>Save changes</button>
+                    {
+                        result ? <div className='alert alert-success text-center my-4'><b>Informazioni aggiornate correttamente</b></div> : 
+                        result !== null ? <div className='alert alert-warning text-center my-4'><b>Qualcosa è andato storto!</b></div> : 
+                        null
+                    }
                 </div>
                 </div>
             </div>
