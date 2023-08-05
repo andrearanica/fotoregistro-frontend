@@ -5,7 +5,6 @@ export default function MyAccount (props) {
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
-    const [email, setEmail] = useState('')
 
     const [result, setResult] = useState(null)
 
@@ -17,19 +16,17 @@ export default function MyAccount (props) {
         setSurname(event.target.value)
     }
 
-    const handleChangeEmail = event => {
-        setEmail(event.target.value)
-    }
-
     const handleUpdateInfo = event => {
         event.preventDefault()
         axios({
             method: 'PUT',
-            url: `http://localhost:8000/api/users/${ props.user.id }`,
+            url: `http://localhost:8000/api/users`,
+            headers: {
+                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+            },
             data: {
                 name: name,
-                surname: surname,
-                email: email
+                surname: surname
             }
         })
         .then(res => {
@@ -59,12 +56,10 @@ export default function MyAccount (props) {
                         <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
                         <label htmlFor='surname'>Surname</label>
                         <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } />
-                        <label htmlFor='email'>Email</label>
-                        <input id='email' className='form-control my-2 text-center' onChange={ handleChangeEmail } type='email' />
                         <input type='submit' className='form-control my-2 btn btn-success' />
                     </form>
                     {
-                        result ? <div className='alert alert-success text-center my-4'><b>Informazioni aggiornate correttamente</b></div> : 
+                        result ? <div className='alert alert-success text-center my-4'><b>Informazioni aggiornate correttamente</b>, ricarica la pagina per vedere le modifiche</div> : 
                         result !== null ? <div className='alert alert-warning text-center my-4'><b>Qualcosa è andato storto!</b></div> : 
                         null
                     }
