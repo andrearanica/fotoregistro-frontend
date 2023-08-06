@@ -50,19 +50,21 @@ export default function SignupForm () {
     }
     
     return (
-        <form onSubmit={ handleFormSubmit }>
-            <label htmlFor='name'>Nome</label>
-            <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
-            <label htmlFor='surname'>Surname</label>
-            <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } />
-            <label htmlFor='email'>Email</label>
-            <input id='email' className='form-control my-2 text-center' onChange={ handleChangeEmail } type='email' />
-            <label htmlFor='password'>Password</label>
-            <input id='password' className='form-control my-2 text-center' onChange={ handleChangePassword } type='password' />
-            <label htmlFor='confrim-password'>Conferma password</label>
-            <input id='confirm-password' className='form-control my-2 text-center' onChange={ handleChangeConfirmPassword } type='password' />
-            <input type='submit' className='form-control my-2 btn btn-success' />
-        </form> 
+        <div>
+            <form onSubmit={ handleFormSubmit } className='my-4'>
+                <label htmlFor='name'>Nome</label>
+                <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
+                <label htmlFor='surname'>Surname</label>
+                <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } />
+                <label htmlFor='email'>Email</label>
+                <input id='email' className='form-control my-2 text-center' onChange={ handleChangeEmail } type='email' />
+                <label htmlFor='password'>Password</label>
+                <input id='password' className='form-control my-2 text-center' onChange={ handleChangePassword } type='password' />
+                <label htmlFor='confrim-password'>Conferma password</label>
+                <input id='confirm-password' className='form-control my-2 text-center' onChange={ handleChangeConfirmPassword } type='password' />
+                <input type='submit' className='form-control my-2 btn btn-success' />
+            </form> 
+        </div>
     )
 
 }
