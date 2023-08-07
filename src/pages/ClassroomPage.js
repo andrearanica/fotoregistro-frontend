@@ -29,39 +29,35 @@ export default function ClassroomPage () {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: `http://localhost:8000/api/users/${ user.id }/classrooms/${ classroom.id }`,
-            headers: {
-                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
-            }
-        })
-        .then(res => {
-            setRole(res.data[0].role)
-        })
-        .catch(err => console.log(err))
-    }, [''])
-
-    useEffect(() => {
-        axios({
-            method: 'GET',
             url: `http://localhost:8000/api/classrooms/${ id }`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }
         })
-        .then(res => setClassroom(res.data))
-        .catch(err => console.log(err))
-    }, [''])
-
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: `http://localhost:8000/api/classrooms/${ id }/users`,
-            headers: {
-                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
-            }
-        })
         .then(res => {
-            setUsers(res.data)
+            setClassroom(res.data)
+            axios({
+                method: 'GET',
+                url: `http://localhost:8000/api/users/${ user.id }/classrooms/${ classroom.id }`,
+                headers: {
+                    'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+                }
+            })
+            .then(res => {
+                setRole(res.data[0].role)
+                axios({
+                    method: 'GET',
+                    url: `http://localhost:8000/api/classrooms/${ id }/users`,
+                    headers: {
+                        'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+                    }
+                })
+                .then(res => {
+                    setUsers(res.data)
+                })
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
     }, [''])
