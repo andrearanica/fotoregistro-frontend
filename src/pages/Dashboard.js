@@ -1,19 +1,22 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import SubscriptionForm from '../components/SubscriptionForm'
 import { Link } from 'react-router-dom'
 import CreateClass from '../components/CreateClass'
+import UploadImage from '../components/UploadImage'
 
 export default function Dashboard () {
     
     const [user, setUser] = useState({})
     const [classrooms, setClassrooms] = useState([])
     const [loading, setLoading] = useState(true)
+    const [image, setImage] = useState('')
+    const [result, setResult] = useState(0)
 
     const getClassroomInfo = async (user) => {
         await axios({
             method: 'GET',
-            url: `http://localhost:8000/api/users/${ user.id }/classroom`,
+            url: `http://localhost:8000/api/users/${ user.id }/classrooms`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }
@@ -21,11 +24,23 @@ export default function Dashboard () {
         .then(res => {
             setClassrooms(res.data)
             setLoading(false)
+            axios({
+                method: 'GET',
+                url: `http://localhost:8000/api/users/${ user.id }/photo`,
+                headers: {
+                    'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+                }
+            })
+            .then(res => {
+                setImage(res.data)
+                console.log(res)
+            })
+            .catch(err => console.log(err))
         })
         .catch(res => console.log(res))
     }
 
-    useEffect(() => {
+    const userInfo = async () => {
         axios({
             method: 'GET',
             url: 'http://localhost:8000/api/auth-info',
@@ -38,14 +53,36 @@ export default function Dashboard () {
             getClassroomInfo(res.data.user)
         })
         .catch(res => {
-            setUser({})
+            console.error(res)
         })
+    }
+
+    useEffect(() => {
+        userInfo()
     }, [''])
+
+    const handleDeletePhoto = event => {
+        event.preventDefault()
+        axios({
+            method: 'DELETE',
+            url: `http://localhost:8000/api/users/${ user.id }/photo`,
+            headers: {
+                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+            }
+        })
+        .then(res => setResult(2))
+        .catch(err => setResult(1))
+    }
 
     return (
         
         <div className='container my-4 text-center'>
             <h1>Ciao { user.name } 🤓</h1>
+            { user.photo ? 
+            <div className='my-4'><img style={{ width: 200 }} src={ `http://localhost:8000/${ image }` } alt='User'  /><br /><button className='btn btn-danger my-2' onClick={ handleDeletePhoto }>Elimina foto</button></div> : 
+            <UploadImage user={ user } /> }
+            { result === 2 ? <div className='alert alert-success my-4 p-4'>Immagine eliminata</div> :
+              result === 1 ? <div className='alert alert-success my-4 p-4'>Non è stato possibile eliminare l'immagine</div> : null }
             <SubscriptionForm user={ user } />
             <CreateClass user={ user } />
             <hr />
