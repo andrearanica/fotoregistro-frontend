@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="" rel="noopener">
+ <!--<img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>-->
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3 align="center">fotoregistro-frontend</h3>
 
-## Available Scripts
+<div align="center">
 
-In the project directory, you can run:
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/andrearanica/fotoregistro-frontend.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/andrearanica/fotoregistro-frontend.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-### `npm start`
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<p align="center"> Frontend project of Fotoregistro, the web application to collect your students' photos 🤓
+    <br> 
+</p>
 
-### `npm test`
+## 📝 Table of Contents
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Built Using](#built_using)
+- [Contributing](../CONTRIBUTING.md)
+- [Authors](#authors)
 
-### `npm run build`
+## 🧐 About <a name = "about"></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project is the frontend of the fotoregistro web application, that allows students and teachers to create their photo registers for school classes. This application is open for every school in every country, so you can't miss it!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🏁 Getting Started <a name = "getting_started"></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
-### `npm run eject`
+### Installing
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+First clone the git repository with the following command:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+git clone https://github.com/andrearanica/fotoregistro-frontend
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To run this project is is necessary to have npm installed on your system. After you have installed npm on your system (the installation depends on your OS) run the following command:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+cd fotoregistro-frontend
+npm start
+```
 
-## Learn More
+Now you will have your development environment to test the application.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ⛏️ Built Using <a name = "built_using"></a>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [MySQL](https://www.mysql.com/) - Database
+- [Laravel](https://www.laravel.com) - Server Framework
+- [VueJs](https://react.dev/) - Web Framework
+- [NodeJs](https://httpd.apache.org/) - Server Environment
 
-### Code Splitting
+## ✍️ Authors <a name = "authors"></a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [@andrearanica](https://github.com/andrearanica) - Idea & Fullstack developer
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+See also the list of [contributors](https://github.com/andrearanica/fotoregistro/contributors) who participated in this project.
