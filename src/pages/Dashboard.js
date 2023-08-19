@@ -49,8 +49,8 @@ export default function Dashboard () {
             }
         })
         .then(res => {
-            setUser(res.data.user)
-            getClassroomInfo(res.data.user)
+            setUser(res.data)
+            getClassroomInfo(res.data)
         })
         .catch(res => {
             console.error(res)
@@ -61,28 +61,10 @@ export default function Dashboard () {
         userInfo()
     }, [''])
 
-    const handleDeletePhoto = event => {
-        event.preventDefault()
-        axios({
-            method: 'DELETE',
-            url: `http://localhost:8000/api/users/${ user.id }/photo`,
-            headers: {
-                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
-            }
-        })
-        .then(res => setResult(2))
-        .catch(err => setResult(1))
-    }
-
     return (
         
         <div className='container my-4 text-center'>
             <h1>Ciao { user.name } 🤓</h1>
-            { user.photo ? 
-            <div className='my-4'><img style={{ width: 200 }} src={ `http://localhost:8000/${ image }` } alt='User'  /><br /><button className='btn btn-danger my-2' onClick={ handleDeletePhoto }>Elimina foto</button></div> : 
-            <UploadImage user={ user } /> }
-            { result === 2 ? <div className='alert alert-success my-4 p-4'>Immagine eliminata</div> :
-              result === 1 ? <div className='alert alert-success my-4 p-4'>Non è stato possibile eliminare l'immagine</div> : null }
             <SubscriptionForm user={ user } />
             <CreateClass user={ user } />
             <hr />

@@ -19,8 +19,12 @@ export default function UserCard (props) {
             } else {
                 setResult(1)
             }
+            console.log(res)
         })
-        .catch(err => setResult(1))
+        .catch(err => {
+            setResult(1)
+            console.log(err)
+        })
     }
 
     return (
@@ -32,7 +36,7 @@ export default function UserCard (props) {
             <div className='card-body'>
                 <h5 className='card-title'>{ props.user.name }</h5>
                 <p><a href={`mailto:${ props.user.email }`}>{ props.user.email }</a></p>
-                <button className='btn btn-danger' onClick={ handleBanUser }>🗑️</button>
+                { props.role === 'admin' ? <button className='btn btn-danger' onClick={ handleBanUser }>🗑️</button> : null }
             </div>
         </div>
         { result === 2 ? <div className='alert alert-success my-4 p-4'>Utente eliminato con successo</div> :

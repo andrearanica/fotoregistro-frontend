@@ -26,14 +26,18 @@ export default function ClassroomPage () {
                 setUser(res.data.user)
                 axios({
                     method: 'GET',
-                    url: `http://localhost:8000/api/users/${ res.data.user.id }/classrooms/${ classroom_id }`,
+                    url: `http://localhost:8000/api/users/${ res.data.id }/classrooms/${ classroom_id }`,
                     headers: {
                         'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                     }
                 })
                 .then(res => {
-                    setRole(res.data[0].role)
-                    console.log(role)
+                    console.log(res.data)
+                    if (res.data.length === 0) {
+                        window.location.href = '../dashboard'
+                    } else {
+                        setRole(res.data.role)
+                    }
                 })
                 .catch(err => console.error(err))
             })
@@ -62,7 +66,6 @@ export default function ClassroomPage () {
                     }
                 })
                 .then(res => {
-                    console.log(res)
                     setClassroomUsers(res.data)
                 })
                 .catch(err => console.error(err))
@@ -76,13 +79,20 @@ export default function ClassroomPage () {
     return (
         <div className='container my-4 text-center'>
             <h1>Classe { classroom.name }</h1>
+            { role === 'admin' ? 
+            <div className='my-4'><a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Mostra il codice per l'iscrizione</a>
+            <div class="collapse my-2" id="collapseExample">
+                <div class="card card-body">
+                    <h3>{ classroom.id }</h3>
+                </div>
+            </div></div> : null }
             { classroom.description ? <h4>{ classroom.description }</h4> : null }
             <center><div className='my-4 row'>
                 {
                     classroomUsers.map(u => {
                         return (
                             <div className='col' key={ u.id }>
-                                <UserCard user={ u } classroom={ classroom } />
+                                <UserCard user={ u } classroom={ classroom } role={ role } />
                             </div>  
                         )
                     })
