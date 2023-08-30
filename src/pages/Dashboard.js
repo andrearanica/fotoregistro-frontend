@@ -3,15 +3,12 @@ import React, { useState, useEffect } from 'react'
 import SubscriptionForm from '../components/SubscriptionForm'
 import { Link } from 'react-router-dom'
 import CreateClass from '../components/CreateClass'
-import UploadImage from '../components/UploadImage'
 
 export default function Dashboard () {
     
     const [user, setUser] = useState({})
     const [classrooms, setClassrooms] = useState([])
     const [loading, setLoading] = useState(true)
-    const [image, setImage] = useState('')
-    const [result, setResult] = useState(0)
 
     const getClassroomInfo = async (user) => {
         await axios({
@@ -32,7 +29,6 @@ export default function Dashboard () {
                 }
             })
             .then(res => {
-                setImage(res.data)
                 console.log(res)
             })
             .catch(err => console.log(err))
@@ -65,8 +61,18 @@ export default function Dashboard () {
         
         <div className='container my-4 text-center'>
             <h1>Ciao { user.name } 🤓</h1>
-            <SubscriptionForm user={ user } />
-            <CreateClass user={ user } />
+            <h4>Cosa vuoi fare?</h4>
+            <div className='row'>
+                <div className='col'>
+                    <SubscriptionForm user={ user } />
+                </div>
+                <div className='col'>
+                    <CreateClass user={ user } />
+                </div>
+                <div className='col'>
+                    <Link to='../my-account'><button className='btn my-4'><h2>📷</h2>Cambiare la mia foto</button></Link>
+                </div>
+            </div>
             <hr />
             <h2>Le tue classi</h2>
             { loading ? <div className="spinner-border text-primary my-4" role="status"><span className="visually-hidden">Loading...</span></div> : null }
@@ -80,7 +86,7 @@ export default function Dashboard () {
                                 <div className='card-body'>
                                     <h5 className='card-title'>{ classroom.name }</h5>
                                     <p className='card-text'>{ classroom.description }</p>
-                                    <Link to={ `/classroom/${ classroom.id }` } className='btn btn-primary'>Vai</Link>
+                                    <Link to={ `/classroom/${ classroom.id }` } className='btn btn-primary mx-2'>Vai</Link>
                                 </div>
                             </div>
                         </center></div>

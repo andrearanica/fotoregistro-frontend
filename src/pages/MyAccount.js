@@ -69,28 +69,37 @@ export default function MyAccount () {
             }
         })
         .then(res => setResult(2))
-        .catch(err => setResult(1))
+        .catch(err => {
+            setResult(1)
+            console.error(err)
+        })
     }
 
     return (
         <div className='container my-4'>
             <h1>Il tuo account</h1>
-            <div className='my-4 card p-4'>
-                <form className='my-4' onSubmit={ handleUpdateInfo }>
-                    <label htmlFor='name'>Nome</label>
-                    <input id='name' className='form-control my-2' value={ name } onChange={ handleChangeName } />
-                    <label htmlFor='surname'>Cognome</label>
-                    <input id='surname' className='form-control my-2' value={ surname } onChange={ handleChangeSurname } />
-                    <label htmlFor='email'>Email</label>
-                    <input id='email' readOnly className='form-control my-2' value={ email } onChange={ handleChangeEmail } />
-                    <div className='text-center'><input type='submit' className='btn btn-success' /></div>
-                </form>
+            <div className='row align-items-center'>
+                <div className='my-4 card p-4 col mx-4'>
+                    <h3>Dati anagrafici</h3>
+                    <form className='my-4' onSubmit={ handleUpdateInfo }>
+                        <label htmlFor='name'>Nome</label>
+                        <input id='name' className='form-control my-2' value={ name } onChange={ handleChangeName } />
+                        <label htmlFor='surname'>Cognome</label>
+                        <input id='surname' className='form-control my-2' value={ surname } onChange={ handleChangeSurname } />
+                        <label htmlFor='email'>Email</label>
+                        <input id='email' readOnly className='form-control my-2' value={ email } onChange={ handleChangeEmail } />
+                        <div className='text-center'><input type='submit' className='btn btn-success my-2' value='Modifica'  /></div>
+                    </form>
+                </div>
+                <div className='col p-4 my-4 card mx-4'>
+                    <h3>La tua foto</h3>
                     { photo ? 
-                    <div className='my-4 text-center'><img style={{ width: 200 }} src={ `http://localhost:8000/images/${ photo }` } alt='User'  /><br /><button className='btn btn-danger my-2' onClick={ handleDeletePhoto }>Elimina foto</button></div> : 
+                    <div className='my-4 text-center'><img className='mb-4' style={{ width: 200, borderRadius: '15px' }} src={ `http://localhost:8000/images/${ photo }` } alt='User'  /><br /><button className='btn btn-danger my-2' onClick={ handleDeletePhoto }>Elimina foto</button></div> : 
                     <UploadImage user={ user } /> }
-                    { result === 2 ? <div className='alert alert-success my-4 p-4 text-center'>Informazioni aggiornate correttamente</div> :
-                    result === 1 ? <div className='alert alert-success my-4 p-4 text-center'>Non è stato possibile completare l'operazione</div> : null }
+                </div>
             </div>
+            { result === 2 ? <div className='alert alert-success my-4 p-4 text-center'>Informazioni aggiornate correttamente</div> :
+              result === 1 ? <div className='alert alert-success my-4 p-4 text-center'>Non è stato possibile completare l'operazione</div> : null }
         </div>
     )
 }

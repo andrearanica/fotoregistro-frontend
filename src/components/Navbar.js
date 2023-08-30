@@ -30,21 +30,17 @@ export default function Navbar () {
                 <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                 <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
                     <li className='nav-item'>
-                        <a className='nav-link active' aria-current='page' href='/'>Home</a>
+                        <a className='nav-link active mx-2' aria-current='page' href='/'>Home</a>
                     </li>
                     <li className='nav-item'>
-                        <a className='nav-link active' aria-current='page' href='/login'>Login</a>
+                        <a className='nav-link active mx-2' aria-current='page' href='/login'>Login</a>
                     </li>
                     <li className='nav-item'>
-                        <a className='nav-link' href='/signup'>Registrati</a>
+                        <a className='nav-link active mx-2' href='/signup'>Registrati</a>
                     </li>
-                    { console.log(user) }
-                    { user !== {} ? <li className='nav-item'>
-                        <a className='nav-link' href='my-account'>
-                        { user.photo ? 
-                            <img style={{ width: 25, borderRadius: '5px' }} src={ `http://localhost:8000/images/${ user.photo }` } alt='User' /> : null }
-                        </a>    
-                    </li> : null }
+                    <li className='nav-item'>
+                    <a className='nav-link active mx-2' href='/my-account'>Il tuo account</a>
+                    </li>
                 </ul>
                 </div>
             </div>

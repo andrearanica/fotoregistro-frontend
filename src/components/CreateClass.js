@@ -28,41 +28,40 @@ export default function CreateClass (props) {
                 description: description
             }
         })
-        .then(res => {
-            const id = res.data.id
-            axios({
-                method: 'POST',
-                url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ id }`,
-                headers: {
-                    'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
-                },
-                data: {
-                    classroom_id: id
-                }
-            })
-            .then(res => setResult(2))
-            .catch(err => setResult(1))
+        .then(() => setResult(2))
+        .catch(err => {
+            setResult(1)
+            console.log(err)
         })
-        .catch(err => setResult(1))
     }
 
     return (
         <div className='my-4'>
-            <a className="btn btn-primary" data-bs-toggle="collapse" href="#create-classroom-form" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Crea una classe
-            </a>
-            <div className='collapse alert alert-warning my-4' id='create-classroom-form'>
-                <form className='my-4' onSubmit={ handleCreateClassroom }>
-                    <label htmlFor='name'>Nome</label>
-                    <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
-                    <label htmlFor='description'>Descrizione</label>
-                    <input id='description' className='form-control my-2 text-center' onChange={ handleChangeDescription } />
-                    <input type='submit' className='btn btn-success my-2' />
-                </form>
-                {
-                    result === 1 ? <div className='alert alert-danger my-4 p-4'><b>Dati non validi</b>, riprova</div> :
-                    result === 2 ? <div className='alert alert-success my-4 p-4'><b>Operazione eseguita con successo</b></div> : null
-                }
+            <button type='button' className='btn' data-bs-toggle='modal' data-bs-target='#create-classroom-modal'>
+                <h2>🎉</h2>Creare una classe
+            </button>
+            <div className='modal fade' id='create-classroom-modal' tabIndex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div className='modal-dialog'>
+                <div className='modal-content'>
+                <div className='modal-header'>
+                    <h1 className='modal-title fs-5' id='create-classroom-modal'>Crea classe</h1>
+                    <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                </div>
+                <div className='modal-body'>
+                    <form className='my-4' onSubmit={ handleCreateClassroom }>
+                        <label htmlFor='name'>Nome</label>
+                        <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
+                        <label htmlFor='description'>Descrizione</label>
+                        <input id='description' className='form-control my-2 text-center' onChange={ handleChangeDescription } />
+                        <input type='submit' className='btn btn-success my-2' />
+                    </form>
+                    {
+                        result === 1 ? <div className='alert alert-danger my-4 p-4'><b>Dati non validi</b>, riprova</div> :
+                        result === 2 ? <div className='alert alert-success my-4 p-4'><b>Operazione eseguita con successo</b></div> : null
+                    }
+                </div>
+                </div>
+            </div>
             </div>
         </div>
     )

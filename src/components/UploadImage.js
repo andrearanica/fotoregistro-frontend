@@ -21,7 +21,10 @@ export default function UploadImage (props) {
             setResult(2)
             console.log(res)
         })
-        .catch(err => setResult(1))
+        .catch(err => {
+            setResult(1)
+            console.error(err)
+        })
     }
 
     const handleChangeImage = event => {

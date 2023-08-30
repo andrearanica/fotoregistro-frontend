@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function UserCard (props) {
     const [result, setResult] = useState(0)
+    const [userClassroom, setUserClassroom] = useState({})
 
     const handleBanUser = event => {
         event.preventDefault()
@@ -27,20 +28,73 @@ export default function UserCard (props) {
         })
     }
 
+    useEffect(() => {
+        const getUserRole = () => {
+            axios({
+                method: 'GET',
+                url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+                headers: {
+                    'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+                }
+            })
+            .then(res => setUserClassroom(res.data))
+            .catch(err => console.error(err))
+        }
+
+        getUserRole()
+    }, [''])
+
+    const handleMakeAdmin = event => {
+        event.preventDefault()
+        axios({
+            method: 'PUT',
+            url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+            headers: {
+                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+            },
+            data: {
+                role: 'admin'
+            }
+        })
+        .then(() => setResult(2))
+        .catch(() => setResult(1))
+    }
+
+    const handleMakeStudent = event => {
+        event.preventDefault()
+        axios({
+            method: 'PUT',
+            url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+            headers: {
+                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+            },
+            data: {
+                role: 'student'
+            }
+        })
+        .then(() => setResult(2))
+        .catch(() => setResult(1))
+    }
+
     return (
-        <>
+        <div>
         <div className='card' style={{ width: '18rem' }}>
+            <h5><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{ userClassroom.role === 'admin' ? 'Admin' : 'Studente' }</span></h5>
             { props.user.photo ? 
             <img src={ `http://localhost:8000/images/${ props.user.photo }` } className='card-img-top' alt='...' /> : 
             <img src={ `http://localhost:8000/images/default.jpg` } className='card-img-top' alt='...' /> }
             <div className='card-body'>
-                <h5 className='card-title'>{ props.user.name }</h5>
+                <h5 className='card-title'>{ props.user.name } { props.user.surname } </h5>
                 <p><a href={`mailto:${ props.user.email }`}>{ props.user.email }</a></p>
-                { props.role === 'admin' ? <button className='btn btn-danger' onClick={ handleBanUser }>🗑️</button> : null }
+                { props.role === 'admin' && props.fatherUserId !== props.user.id ? <button className='btn btn-danger' onClick={ handleBanUser }>🗑️</button> : null }
+                { props.role === 'admin' && props.fatherUserId !== props.user.id ? 
+                    userClassroom.role === 'student' ? <button className='btn btn-success mx-2' onClick={ handleMakeAdmin }>⬆️</button> :
+                    userClassroom.role === 'admin'   ? <button className='btn btn-success mx-2' onClick={ handleMakeStudent }>⬇️</button> : null
+                : null }
             </div>
         </div>
-        { result === 2 ? <div className='alert alert-success my-4 p-4'>Utente eliminato con successo</div> :
+        { result === 2 ? <div className='alert alert-success my-4 p-4'>Operazione completata con successo</div> :
           result === 1 ? <div className='alert alert-danger my-4 p-4'>Non è stato possibile completare l'operazione</div> : null }
-        </>
+        </div>
     )
-}
+} 
