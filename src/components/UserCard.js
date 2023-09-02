@@ -79,7 +79,7 @@ export default function UserCard (props) {
     return (
         <div>
         <div className='card' style={{ width: '18rem' }}>
-            <h5><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{ userClassroom.role === 'admin' ? 'Admin' : 'Studente' }</span></h5>
+            <h5><span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>{ userClassroom.role === 'admin' ? 'Admin' : userClassroom.role === 'student' ? 'Studente' : null }</span></h5>
             { props.user.photo ? 
             <img src={ `http://localhost:8000/images/${ props.user.photo }` } className='card-img-top' alt='...' /> : 
             <img src={ `http://localhost:8000/images/default.jpg` } className='card-img-top' alt='...' /> }
