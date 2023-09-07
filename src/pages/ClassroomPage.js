@@ -10,7 +10,12 @@ export default function ClassroomPage () {
     const [classroomUsers, setClassroomUsers] = useState([])
     const [userId, setUserId] = useState('')
     const [role, setRole] = useState('')
-    const [studentsWithoutPhoto, setStudentsWithoutPhoto] = useState([])
+
+    const redirectToLogin = (err) => {
+        if (err.data.status === 'Invalid token') {
+            window.location = '../login'
+        }
+    }
 
     useEffect(() => {
         const getInfo = async () => {
@@ -22,6 +27,7 @@ export default function ClassroomPage () {
                 }
             })
             .then(res => {
+                redirectToLogin(res)
                 setUserId(res.data.id)
                 axios({
                     method: 'GET',
@@ -31,16 +37,25 @@ export default function ClassroomPage () {
                     }
                 })
                 .then(res => {
-                    console.log(res.data)
+                    redirectToLogin(res)
+                    console.log(res)
                     if (res.data.length === 0) {
                         window.location.href = '../dashboard'
                     } else {
                         setRole(res.data.role)
                     }
                 })
-                .catch(err => console.error(err))
+                .catch(err => {
+                    if (err.status === 'Invalid token') {
+                        window.location = '../login'
+                    }
+                })
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                if (err.status === 'Invalid token') {
+                    window.location = '../login'
+                }
+            })
         }
 
        getInfo()
@@ -56,6 +71,7 @@ export default function ClassroomPage () {
                 }
             })
             .then(res => {
+                redirectToLogin(res)
                 setClassroom(res.data)
                 axios({
                     method: 'GET',
@@ -65,11 +81,20 @@ export default function ClassroomPage () {
                     }
                 })
                 .then(res => {
-                    setClassroomUsers(res.data)
+                    redirectToLogin(res)
+                    setClassroomUsers(res.data.sort((a, b) => (a.surname > b.surname) ? 1 : -1))
                 })
-                .catch(err => console.error(err))
+                .catch(err => {
+                    if (err.status === 'Invalid token') {
+                        window.location = '../login'
+                    }
+                })
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                if (err.status === 'Invalid token') {
+                    window.location = '../login'
+                }
+            })
         }
 
         getClassInfo()

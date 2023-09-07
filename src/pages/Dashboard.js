@@ -10,6 +10,12 @@ export default function Dashboard () {
     const [classrooms, setClassrooms] = useState([])
     const [loading, setLoading] = useState(true)
 
+    const redirectToLogin = (err) => {
+        if (err.data.status === 'Invalid token') {
+            window.location = '../login'
+        }
+    }
+
     const getClassroomInfo = async (user) => {
         await axios({
             method: 'GET',
@@ -19,6 +25,7 @@ export default function Dashboard () {
             }
         })
         .then(res => {
+            redirectToLogin(res)
             setClassrooms(res.data)
             setLoading(false)
             axios({
@@ -45,11 +52,12 @@ export default function Dashboard () {
             }
         })
         .then(res => {
+            redirectToLogin(res)
             setUser(res.data)
             getClassroomInfo(res.data)
         })
         .catch(res => {
-            console.error(res)
+            window.location = '../login'
         })
     }
 

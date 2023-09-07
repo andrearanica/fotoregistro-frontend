@@ -12,6 +12,12 @@ export default function MyAccount () {
 
     const [user, setUser] = useState({})
 
+    const redirectToLogin = (err) => {
+        if (err.data.status === 'Invalid token') {
+            window.location = '../login'
+        }
+    }
+
     useEffect(() => {
         axios({
             method: 'GET',
@@ -21,13 +27,14 @@ export default function MyAccount () {
             }
         })
         .then(res => {
+            redirectToLogin(res)
             setName(res.data.name)
             setSurname(res.data.surname)
             setEmail(res.data.email)
             setPhoto(res.data.photo)
             setUser(res.data)
         })
-        .catch(err => console.error(err))
+        .catch(err => window.location = '../login')
     }, [''])
 
     const handleChangeName = event => {

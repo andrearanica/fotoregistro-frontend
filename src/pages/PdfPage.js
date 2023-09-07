@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import jsPDF from 'jspdf'
 
 export default function PdfPage (props) {
 
@@ -27,7 +28,7 @@ export default function PdfPage (props) {
                     }
                 })
                 .then(res => {
-                    setClassroomUsers(res.data)
+                    setClassroomUsers(res.data.sort((a, b) => (a.surname > b.surname) ? 1 : -1))
                 })
                 .catch(err => console.error(err))
             })
@@ -38,8 +39,8 @@ export default function PdfPage (props) {
     }, [''])
 
     return (
-        <div className='container my-5 text-center'>
-            <h1 onClick={ () => window.print() }>{ classroom.name } </h1>
+        <div className='container my-5 text-center' id='pdf-page'>
+            <h1 onClick={ window.print }>{ classroom.name } </h1>
             <center><div className='row my-5'> 
             {
                 classroomUsers.map(user => {

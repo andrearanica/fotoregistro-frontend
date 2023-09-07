@@ -25,6 +25,9 @@ export default function Home () {
                     </div>
                 </div>
                 <center><Link to='/login'><button className='btn btn-primary my-4' style={{ width: '500px' }}>Unisciti a <i>fotoregistro</i></button></Link></center>
+                <div className='container alert alert-success my-4'>
+                    Per collaborare a fotoregistro, visita la <Link to="https://github.com/andrearanica/fotoregistro-frontend">repository</Link> pubblica
+                </div>
             </div>
         </div>
     )
