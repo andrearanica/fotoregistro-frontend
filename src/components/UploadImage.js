@@ -12,7 +12,7 @@ export default function UploadImage (props) {
         formData.append('image', image)
         axios({
             method: 'POST',
-            url: `http://localhost:8000/api/users/${ props.user.id }/photo`, 
+            url: `http://192.168.1.95:8000/api/users/${ props.user.id }/photo`, 
             data: formData,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`

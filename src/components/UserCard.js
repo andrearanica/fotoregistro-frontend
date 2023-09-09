@@ -9,7 +9,7 @@ export default function UserCard (props) {
         event.preventDefault()
         axios({
             method: 'DELETE',
-            url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+            url: `http://192.168.1.95:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }
@@ -32,7 +32,7 @@ export default function UserCard (props) {
         const getUserRole = () => {
             axios({
                 method: 'GET',
-                url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+                url: `http://192.168.1.95:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
                 headers: {
                     'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                 }
@@ -48,7 +48,7 @@ export default function UserCard (props) {
         event.preventDefault()
         axios({
             method: 'PUT',
-            url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+            url: `http://192.168.1.95:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             },
@@ -64,7 +64,7 @@ export default function UserCard (props) {
         event.preventDefault()
         axios({
             method: 'PUT',
-            url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
+            url: `http://192.168.1.95:8000/api/users/${ props.user.id }/classrooms/${ props.classroom.id }`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             },
@@ -78,11 +78,11 @@ export default function UserCard (props) {
 
     return (
         <div>
-        <div className='card' style={{ width: '18rem' }}>
+        <div className='card mx-2' style={{ width: '15rem' }}>
             <h5><span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>{ userClassroom.role === 'admin' ? 'Admin' : userClassroom.role === 'student' ? 'Studente' : null }</span></h5>
             { props.user.photo ? 
-            <img src={ `http://localhost:8000/images/${ props.user.photo }` } className='card-img-top' alt='...' /> : 
-            <img src={ `http://localhost:8000/images/default.jpg` } className='card-img-top' alt='...' /> }
+            <img src={ `http://192.168.1.95:8000/images/${ props.user.photo }` } className='card-img-top' alt='...' /> : 
+            <img src={ `http://192.168.1.95:8000/images/default.jpg` } className='card-img-top' alt='...' /> }
             <div className='card-body'>
                 <h5 className='card-title'>{ props.user.name } { props.user.surname } </h5>
                 <p><a href={`mailto:${ props.user.email }`}>{ props.user.email }</a></p>

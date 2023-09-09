@@ -19,7 +19,7 @@ export default function CreateClass (props) {
         event.preventDefault()
         axios({
             method: 'POST',
-            url: 'http://localhost:8000/api/classrooms',
+            url: 'http://192.168.1.95:8000/api/classrooms',
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             },

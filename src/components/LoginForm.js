@@ -22,7 +22,7 @@ export default function LoginForm () {
         setLoginState(1)
         axios({
             method: 'POST',
-            url: 'http://localhost:8000/api/login',
+            url: 'http://192.168.1.95:8000/api/login',
             data: {
                 email: email,
                 password: password

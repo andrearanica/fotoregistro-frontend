@@ -9,7 +9,7 @@ export default function Navbar () {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: 'http://localhost:8000/api/auth-info',
+            url: 'http://192.168.1.95:8000/api/auth-info',
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }

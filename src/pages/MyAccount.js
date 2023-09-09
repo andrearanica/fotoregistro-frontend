@@ -21,7 +21,7 @@ export default function MyAccount () {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: 'http://localhost:8000/api/auth-info',
+            url: 'http://192.168.1.95:8000/api/auth-info',
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }
@@ -53,7 +53,7 @@ export default function MyAccount () {
         event.preventDefault()
         axios({
             method: 'DELETE',
-            url: `http://localhost:8000/api/users/${ user.id }/photo`,
+            url: `http://192.168.1.95:8000/api/users/${ user.id }/photo`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }
@@ -66,7 +66,7 @@ export default function MyAccount () {
         event.preventDefault()
         axios({
             method: 'PUT',
-            url: `http://localhost:8000/api/users/${ user.id }`,
+            url: `http://192.168.1.95:8000/api/users/${ user.id }`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             },
@@ -83,30 +83,30 @@ export default function MyAccount () {
     }
 
     return (
-        <div className='container my-4'>
+        <center>
+        <div className='row my-4 container'>
             <h1>Il tuo account</h1>
-            <div className='row align-items-center'>
-                <div className='my-4 card p-4 col mx-4'>
-                    <h3>Dati anagrafici</h3>
-                    <form className='my-4' onSubmit={ handleUpdateInfo }>
-                        <label htmlFor='name'>Nome</label>
-                        <input id='name' className='form-control my-2' value={ name } onChange={ handleChangeName } />
-                        <label htmlFor='surname'>Cognome</label>
-                        <input id='surname' className='form-control my-2' value={ surname } onChange={ handleChangeSurname } />
-                        <label htmlFor='email'>Email</label>
-                        <input id='email' readOnly className='form-control my-2' value={ email } onChange={ handleChangeEmail } />
-                        <div className='text-center'><input type='submit' className='btn btn-success my-2' value='Modifica'  /></div>
-                    </form>
-                </div>
-                <div className='col p-4 my-4 card mx-4'>
-                    <h3>La tua foto</h3>
-                    { photo ? 
-                    <div className='my-4 text-center'><img className='mb-4' style={{ width: 200, borderRadius: '15px' }} src={ `http://localhost:8000/images/${ photo }` } alt='User'  /><br /><button className='btn btn-danger my-2' onClick={ handleDeletePhoto }>Elimina foto</button></div> : 
-                    <UploadImage user={ user } /> }
-                </div>
-            </div>
+            <div className='col-lg card my-2 p-4'>
+                <h3>Dati anagrafici</h3>
+                <form className='my-4' onSubmit={ handleUpdateInfo }>
+                    <label htmlFor='name'>Nome</label>
+                    <input id='name' className='form-control my-2' value={ name } onChange={ handleChangeName } />
+                    <label htmlFor='surname'>Cognome</label>
+                    <input id='surname' className='form-control my-2' value={ surname } onChange={ handleChangeSurname } />
+                    <label htmlFor='email'>Email</label>
+                    <input id='email' readOnly className='form-control my-2' value={ email } onChange={ handleChangeEmail } />
+                    <div className='text-center'><input type='submit' className='btn btn-success my-2' value='Modifica'  /></div>
+                </form>
+            </div> 
+            <div className='col-lg card my-2 p-4'>
+            <h3>La tua foto</h3>
+            { photo ? 
+            <div className='my-4 text-center'><img className='mb-4' style={{ maxWidth: 300, borderRadius: '15px' }} src={ `http://192.168.1.95:8000/images/${ photo }` } alt='User'  /><br /><button className='btn btn-danger my-2' onClick={ handleDeletePhoto }>Elimina foto</button></div> : 
+            <UploadImage user={ user } /> }
             { result === 2 ? <div className='alert alert-success my-4 p-4 text-center'>Informazioni aggiornate correttamente</div> :
               result === 1 ? <div className='alert alert-success my-4 p-4 text-center'>Non è stato possibile completare l'operazione</div> : null }
+            </div>
         </div>
+        </center>
     )
 }

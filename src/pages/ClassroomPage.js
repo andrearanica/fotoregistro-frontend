@@ -10,6 +10,7 @@ export default function ClassroomPage () {
     const [classroomUsers, setClassroomUsers] = useState([])
     const [userId, setUserId] = useState('')
     const [role, setRole] = useState('')
+    const [studentsWithoutPhotos, setStudentsWithoutPhotos] = useState([])
 
     const redirectToLogin = (err) => {
         if (err.data.status === 'Invalid token') {
@@ -21,7 +22,7 @@ export default function ClassroomPage () {
         const getInfo = async () => {
             axios({
                 method: 'GET',
-                url: 'http://localhost:8000/api/auth-info/',
+                url: 'http://192.168.1.95:8000/api/auth-info/',
                 headers: {
                     'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                 }
@@ -31,7 +32,7 @@ export default function ClassroomPage () {
                 setUserId(res.data.id)
                 axios({
                     method: 'GET',
-                    url: `http://localhost:8000/api/users/${ res.data.id }/classrooms/${ classroom_id }`,
+                    url: `http://192.168.1.95:8000/api/users/${ res.data.id }/classrooms/${ classroom_id }`,
                     headers: {
                         'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                     }
@@ -65,7 +66,7 @@ export default function ClassroomPage () {
         const getClassInfo = async () => {
             axios({
                 method: 'GET',
-                url: `http://localhost:8000/api/classrooms/${ classroom_id }`,
+                url: `http://192.168.1.95:8000/api/classrooms/${ classroom_id }`,
                 headers: {
                     'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                 }
@@ -75,7 +76,7 @@ export default function ClassroomPage () {
                 setClassroom(res.data)
                 axios({
                     method: 'GET',
-                    url: `http://localhost:8000/api/classrooms/${ classroom_id }/users/`,
+                    url: `http://192.168.1.95:8000/api/classrooms/${ classroom_id }/users/`,
                     headers: {
                         'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                     }

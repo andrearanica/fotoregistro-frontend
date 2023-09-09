@@ -19,7 +19,7 @@ export default function Dashboard () {
     const getClassroomInfo = async (user) => {
         await axios({
             method: 'GET',
-            url: `http://localhost:8000/api/users/${ user.id }/classrooms`,
+            url: `http://192.168.1.95:8000/api/users/${ user.id }/classrooms`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }
@@ -30,7 +30,7 @@ export default function Dashboard () {
             setLoading(false)
             axios({
                 method: 'GET',
-                url: `http://localhost:8000/api/users/${ user.id }/photo`,
+                url: `http://192.168.1.95:8000/api/users/${ user.id }/photo`,
                 headers: {
                     'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                 }
@@ -46,7 +46,7 @@ export default function Dashboard () {
     const userInfo = async () => {
         axios({
             method: 'GET',
-            url: 'http://localhost:8000/api/auth-info',
+            url: 'http://192.168.1.95:8000/api/auth-info',
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             }

@@ -20,7 +20,7 @@ export default function MyAccount (props) {
         event.preventDefault()
         axios({
             method: 'PUT',
-            url: `http://localhost:8000/api/users`,
+            url: `http://192.168.1.95:8000/api/users`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             },

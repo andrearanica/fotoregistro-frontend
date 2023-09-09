@@ -33,7 +33,7 @@ export default function SignupForm () {
         event.preventDefault()
         axios({
             method: 'POST',
-            url: 'http://localhost:8000/api/register',
+            url: 'http://192.168.1.95:8000/api/register',
             data: {
                 email: email,
                 password: password,

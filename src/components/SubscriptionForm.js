@@ -15,7 +15,7 @@ export default function SubscriptionForm (props) {
         event.preventDefault()
         axios({
             method: 'POST',
-            url: `http://localhost:8000/api/users/${ props.user.id }/classrooms/${ class_id }`,
+            url: `http://192.168.1.95:8000/api/users/${ props.user.id }/classrooms/${ class_id }`,
             headers: {
                 'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
             },
