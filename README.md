@@ -57,8 +57,8 @@ Now you will have your development environment to test the application.
 
 - [MySQL](https://www.mysql.com/) - Database
 - [Laravel](https://www.laravel.com) - Server Framework
-- [VueJs](https://react.dev/) - Web Framework
-- [NodeJs](https://httpd.apache.org/) - Server Environment
+- [React](https://react.dev/) - Web Framework
+- [Apache](https://httpd.apache.org/) - Server Environment
 
 ## ✍️ Authors <a name = "authors"></a>
 
