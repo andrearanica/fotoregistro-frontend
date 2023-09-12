@@ -47,7 +47,7 @@ export default function PdfPage (props) {
                     if (user.photo) {
                         return (
                             <div className='col col-2 my-2' key={ user.id }>
-                                { user.photo ? <img src={ `http://192.168.1.95:8000/images/${ user.photo }` } style={{ height: '100px', width: 'auto' }} className='card-img-top mb-4' alt='...' /> : <img src={ `http://192.168.1.95:8000/images/default.jpg` } style={{ width: '200px' }} className='card-img-top' alt='...' /> }
+                                { user.photo ? <img src={ `http://192.168.1.95:8000/images/${ user.photo }` } style={{ maxWidth: '100px', height: '100px', width: 'auto' }} className='card-img-top mb-4' alt='...' /> : <img src={ `http://192.168.1.95:8000/images/default.jpg` } style={{ width: '200px' }} className='card-img-top' alt='...' /> }
                                 <div className='card-body'>
                                     <h5 className='card-title'>{ user.name } { user.surname }</h5>
                                 </div>

@@ -20,6 +20,7 @@ export default function UserCard (props) {
             } else {
                 setResult(1)
             }
+            window.location.reload()
             console.log(res)
         })
         .catch(err => {
@@ -56,7 +57,10 @@ export default function UserCard (props) {
                 role: 'admin'
             }
         })
-        .then(() => setResult(2))
+        .then(() => {
+            setResult(2)
+            window.location.reload()
+        })
         .catch(() => setResult(1))
     }
 
@@ -72,7 +76,10 @@ export default function UserCard (props) {
                 role: 'student'
             }
         })
-        .then(() => setResult(2))
+        .then(() => {
+            setResult(2)
+            window.location.reload()
+        })
         .catch(() => setResult(1))
     }
 

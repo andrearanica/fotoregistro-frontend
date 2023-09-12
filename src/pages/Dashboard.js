@@ -86,10 +86,9 @@ export default function Dashboard () {
             { loading ? <div className="spinner-border text-primary my-4" role="status"><span className="visually-hidden">Loading...</span></div> : null }
             <div className='row text-center my-4'>
             {
-                classrooms !== [] ? 
                 classrooms.map(classroom => {
                     return (
-                        <div className='col' key={ classroom.id }><center>
+                        <div className='col my-2' key={ classroom.id }><center>
                             <div className='card' style={{ width: '18rem' }}>
                                 <div className='card-body'>
                                     <h5 className='card-title'>{ classroom.name }</h5>
@@ -100,7 +99,6 @@ export default function Dashboard () {
                         </center></div>
                     )
                 })
-                : null
             }
             </div>
         </div>

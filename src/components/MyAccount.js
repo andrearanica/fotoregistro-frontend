@@ -5,6 +5,7 @@ export default function MyAccount (props) {
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
+    
 
     const [result, setResult] = useState(null)
 
@@ -50,9 +51,15 @@ export default function MyAccount (props) {
                     <h1 className='modal-title fs-5' id='exampleModalLabel'>Il tuo account</h1>
                     <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                 </div>
-                <div className='modal-body'>
+                <div className='modal-body'> 
                     <form onSubmit={ handleUpdateInfo }>
                         <label htmlFor='name'>Nome</label>
+                        <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
+                        <label htmlFor='surname'>Surname</label>
+                        <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } />
+                        <input type='submit' className='form-control my-2 btn btn-success' />
+                    </form>
+                    <form>
                         <input id='name' className='form-control my-2 text-center' onChange={ handleChangeName } />
                         <label htmlFor='surname'>Surname</label>
                         <input id='surname' className='form-control my-2 text-center' onChange={ handleChangeSurname } />

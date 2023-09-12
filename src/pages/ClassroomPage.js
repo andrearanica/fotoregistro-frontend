@@ -10,7 +10,6 @@ export default function ClassroomPage () {
     const [classroomUsers, setClassroomUsers] = useState([])
     const [userId, setUserId] = useState('')
     const [role, setRole] = useState('')
-    const [studentsWithoutPhotos, setStudentsWithoutPhotos] = useState([])
 
     const redirectToLogin = (err) => {
         if (err.data.status === 'Invalid token') {
@@ -62,42 +61,42 @@ export default function ClassroomPage () {
        getInfo()
     }, [classroom_id, role])
 
-    useEffect(() => {
-        const getClassInfo = async () => {
+    const getClassInfo = async () => {
+        axios({
+            method: 'GET',
+            url: `http://192.168.1.95:8000/api/classrooms/${ classroom_id }`,
+            headers: {
+                'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
+            }
+        })
+        .then(res => {
+            redirectToLogin(res)
+            setClassroom(res.data)
             axios({
                 method: 'GET',
-                url: `http://192.168.1.95:8000/api/classrooms/${ classroom_id }`,
+                url: `http://192.168.1.95:8000/api/classrooms/${ classroom_id }/users/`,
                 headers: {
                     'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
                 }
             })
             .then(res => {
                 redirectToLogin(res)
-                setClassroom(res.data)
-                axios({
-                    method: 'GET',
-                    url: `http://192.168.1.95:8000/api/classrooms/${ classroom_id }/users/`,
-                    headers: {
-                        'Authorization': `Bearer ${ window.localStorage.getItem('token') }`
-                    }
-                })
-                .then(res => {
-                    redirectToLogin(res)
-                    setClassroomUsers(res.data.sort((a, b) => (a.surname > b.surname) ? 1 : -1))
-                })
-                .catch(err => {
-                    if (err.status === 'Invalid token') {
-                        window.location = '../login'
-                    }
-                })
+                setClassroomUsers(res.data.sort((a, b) => (a.surname > b.surname) ? 1 : -1))
             })
             .catch(err => {
                 if (err.status === 'Invalid token') {
                     window.location = '../login'
                 }
             })
-        }
+        })
+        .catch(err => {
+            if (err.status === 'Invalid token') {
+                window.location = '../login'
+            }
+        })
+    }
 
+    useEffect(() => {
         getClassInfo()
     }, [''])
 
@@ -105,13 +104,13 @@ export default function ClassroomPage () {
         <div className='container my-4 text-center'>
             <h1>{ classroom.name }</h1>
             { role === 'admin' ? 
-            <div className='my-4'><a className='btn btn-primary' data-bs-toggle='collapse' href='#collapseExample' role='button' aria-expanded='false' aria-controls='collapseExample'>Mostra il codice per l'iscrizione</a>
+            <div className='my-4'><a className='btn btn-primary my-2' data-bs-toggle='collapse' href='#collapseExample' role='button' aria-expanded='false' aria-controls='collapseExample'>Mostra il codice per l'iscrizione</a>
             <div className='collapse my-2' id='collapseExample'>
                 <div className='card card-body'>
                     <h3>{ classroom.id }</h3>
                 </div>
             </div>
-            <Link to='pdf'><button className='btn btn-primary mx-4'>🖨️ Stampa PDF</button></Link>
+            <Link to='pdf'><button className='btn btn-primary mx-4 my-2'>🖨️ Stampa PDF</button></Link>
             </div> : null }
             { classroom.description ? <h4>{ classroom.description }</h4> : null }
             <hr />
@@ -120,7 +119,7 @@ export default function ClassroomPage () {
                     classroomUsers.map(u => {
                         return (
                             <div className='col my-4' key={ u.id }>
-                                <UserCard fatherUserId={ userId } user={ u } classroom={ classroom } role={ role } />
+                                <UserCard reloadClassInfo={ getClassInfo } fatherUserId={ userId } user={ u } classroom={ classroom } role={ role } />
                             </div>  
                         )
                     })

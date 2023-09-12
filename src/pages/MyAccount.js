@@ -8,6 +8,9 @@ export default function MyAccount () {
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [photo, setPhoto] = useState('')
+    const [oldPassword, setOldPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const [result, setResult] = useState(0)
 
     const [user, setUser] = useState({})
@@ -47,6 +50,18 @@ export default function MyAccount () {
 
     const handleChangeEmail = event => {
         setEmail(event.target.value)
+    }
+
+    const handleChangeOldPassword = event => {
+        setOldPassword(event.target.value)
+    }
+
+    const handleChangeNewPassword = event => {
+        setNewPassword(event.target.value)
+    }
+
+    const handleChangeConfirmNewPassword = event => {
+        setConfirmNewPassword(event.target.value)
     }
 
     const handleDeletePhoto = event => {
